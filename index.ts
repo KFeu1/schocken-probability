@@ -2,7 +2,7 @@ import { createFraction as f } from 'precise-fractions';
 
 const p = prob1(3,1);
 
-console.log(p);
+console.log(p.toString());
 
 
 function prob1(n: bigint | number | string, k: bigint | number | string) {
@@ -22,8 +22,8 @@ function prob1(n: bigint | number | string, k: bigint | number | string) {
     if (k === 0n) {
         return f(4n ** (n - 1n) * (4n + n), 6n ** n);
     }
-    return (4n ** (n - k - 1n) * (n - k) + 4n ** (n-k)) * bin(n,k) +
-        4n ** (n - k - 1n) * ((k - n) * bin(n,k) + (2n ** (k + 1n) - 1n) * bin(n,k + 1n));
+    return f((4n ** (n - k - 1n) * (n - k) + 4n ** (n-k)) * bin(n,k) +
+        4n ** (n - k - 1n) * ((k - n) * bin(n,k) + (2n ** (k + 1n) - 1n) * bin(n,k + 1n)), 6n ** n);
 };
 
 function bin(n: bigint, k: bigint) : bigint {
