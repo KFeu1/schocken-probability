@@ -1,9 +1,11 @@
 import { createFraction as f } from 'precise-fractions';
 
+const start = performance.now();
 const p = prob1(3,1);
+const end = performance.now();
 
 console.log(p.toString());
-
+console.log(`Time in ms: ${end - start}.`);
 
 function prob1(n: bigint | number | string, k: bigint | number | string) {
     if (typeof n !== "bigint") {
@@ -26,16 +28,25 @@ function prob1(n: bigint | number | string, k: bigint | number | string) {
         4n ** (n - k - 1n) * ((k - n) * bin(n,k) + (2n ** (k + 1n) - 1n) * bin(n,k + 1n)), 6n ** n);
 };
 
-function bin(n: bigint, k: bigint) : bigint {
-    return factorialize(n) / (factorialize(k) * factorialize(n-k));
+function bin(n: bigint, k: bigint) {
+    const [min, max] = minMax(k,n-k);
+    return factorialize(n, max) / factorialize(min);
 }
 
-function factorialize(num: bigint) {
-    if (num === 0n || num === 1n)
+function minMax(n: bigint, k: bigint) {
+    if (n > k) return [k,n];
+    return [n,k];
+}
+
+function factorialize(num: bigint, stop?: bigint) {
+    if (num <= 1n)
       return 1n;
 
-    for (let i = num - 1n; i >= 1; i--) {
-      num *= i; // or num *= i;
+    stop = stop === undefined ? 1n : stop + 1n;
+
+    for (let i = num - 1n; i >= stop; i--) {
+        num *= i;
     }
-    return num; //120
+
+    return num;
   }
