@@ -1,0 +1,17 @@
+lockfileVersion: '6.0'
+
+settings:
+  autoInstallPeers: true
+  excludeLinksFromLockfile: false
+
+dependencies:
+  precise-fractions:
+    specifier: ^1.0.4
+    version: 1.0.4
+
+packages:
+
+  /precise-fractions@1.0.4:
+    resolution: {integrity: sha512-HB+RPLm4lm0z8PK/3tip/Uao/bpcsypna7s5YR34wY7HARNMiFYEVDvqlnXUevroU0oROAcI5z3cUyEvXzlvwQ==}
+    engines: {node: '>=10.4.0'}
+    dev: false
