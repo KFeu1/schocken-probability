@@ -1,4 +1,4 @@
-import { createFraction as f } from 'precise-fractions';
+import { createFraction as f, add } from 'precise-fractions';
 
 const start = performance.now();
 const p = prob1(3,1);
@@ -6,6 +6,7 @@ const end = performance.now();
 
 console.log(p.toString());
 console.log(`Time in ms: ${end - start}.`);
+console.log(add(prob1(3,0), prob1(3,1), prob1(3,2), prob1(3,3)))
 
 function prob1(n: bigint | number | string, k: bigint | number | string) {
     if (typeof n !== "bigint") {
@@ -18,8 +19,8 @@ function prob1(n: bigint | number | string, k: bigint | number | string) {
     if (n === k) {
         return f(1,6n ** n);
     }
-    if (n === k - 1n) {
-        return f(2n ** n + 4n * n + 1n, 6n ** n);
+    if (n === k + 1n) {
+        return f(2n ** n + 4n * n - 1n, 6n ** n);
     }
     if (k === 0n) {
         return f(4n ** (n - 1n) * (4n + n), 6n ** n);

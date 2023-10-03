@@ -10,6 +10,6 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "precise-fractions": "^1.0.4"
+    "precise-fractions": "^1.0.5"
   }
 }
