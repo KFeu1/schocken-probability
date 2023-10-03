@@ -1,12 +1,21 @@
 import { createFraction as f, add } from 'precise-fractions';
 
+const N = 333;
+
 const start = performance.now();
 const p = prob1(3,1);
 const end = performance.now();
 
 console.log(p.toString());
 console.log(`Time in ms: ${end - start}.`);
-console.log(add(prob1(3,0), prob1(3,1), prob1(3,2), prob1(3,3)))
+
+const check = f(0);
+
+for (let i = 0; i <= N; i++) {
+    check.add(prob1(N,i))
+}
+
+console.log(check);
 
 function prob1(n: bigint | number | string, k: bigint | number | string) {
     if (typeof n !== "bigint") {
