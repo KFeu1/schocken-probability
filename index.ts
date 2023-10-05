@@ -1,6 +1,7 @@
 import { createFraction as f, add } from 'precise-fractions';
 
-// const N = 333;
+const N = 3;
+const K = 3;
 
 // const start = performance.now();
 // const p = prob1(33333,16666);
@@ -17,9 +18,25 @@ import { createFraction as f, add } from 'precise-fractions';
 
 // console.log(check);
 
-for (const p of getPartitions(3,3)) {
-    console.log(p)
+const result = f(0);
+
+for (const p of getPartitions(N,K)) {
+    let n = N;
+    const probTotal = f(1);
+
+    for (let i = 0; i < p.length; i++) {
+        const dice = p[i];
+        const prob = prob1(n, dice);
+        probTotal.multiply(prob);
+        n -= dice;
+        if (n === 0) {
+            break;
+        }
+    }
+    result.add(probTotal);
 }
+
+console.log(result)
 
 function prob1(n: bigint | number | string, k: bigint | number | string) {
     if (typeof n !== "bigint") {
