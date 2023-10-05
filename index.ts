@@ -1,21 +1,25 @@
 import { createFraction as f, add } from 'precise-fractions';
 
-const N = 333;
+// const N = 333;
 
-const start = performance.now();
-const p = prob1(3,1);
-const end = performance.now();
+// const start = performance.now();
+// const p = prob1(33333,16666);
+// const end = performance.now();
 
-console.log(p.toString());
-console.log(`Time in ms: ${end - start}.`);
+// console.log(p.toString());
+// console.log(`Time in ms: ${end - start}.`);
 
-const check = f(0);
+// const check = f(0);
 
-for (let i = 0; i <= N; i++) {
-    check.add(prob1(N,i))
+// for (let i = 0; i <= N; i++) {
+//     check.add(prob1(N,i))
+// }
+
+// console.log(check);
+
+for (const p of getPartitions(3,3)) {
+    console.log(p)
 }
-
-console.log(check);
 
 function prob1(n: bigint | number | string, k: bigint | number | string) {
     if (typeof n !== "bigint") {
@@ -59,4 +63,21 @@ function factorialize(num: bigint, stop?: bigint) {
     }
 
     return num;
-  }
+}
+
+function* getPartitions(n: number, p:number) : IterableIterator<Array<number>> {
+    if (n === 0) {
+        yield []
+        return;
+    }
+    if (p === 1) {
+        yield [n];
+        return;
+    }
+
+    for (let i = 0; i <= n; i++) {
+        for (const part of getPartitions(n - i, p - 1)) {
+            yield [i, ...part];
+        }
+    }
+}

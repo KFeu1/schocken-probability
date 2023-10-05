@@ -6,12 +6,18 @@ settings:
 
 dependencies:
   precise-fractions:
-    specifier: ^1.0.5
-    version: 1.0.5
+    specifier: link:C:/Users/kfeue/Desktop/Projects/Typescript/precise-fractions
+    version: link:../precise-fractions
+
+devDependencies:
+  typescript:
+    specifier: ^5.2.2
+    version: 5.2.2
 
 packages:
 
-  /precise-fractions@1.0.5:
-    resolution: {integrity: sha512-2Vd+LANT3vWLqha7rKG5w+lKLWnXwznw4pxVF7TXl8x8xXV22l6Sk0Yfvuug7OzSz7Nd4NNQ+FNzCc9se0n5bA==}
-    engines: {node: '>=10.4.0'}
-    dev: false
+  /typescript@5.2.2:
+    resolution: {integrity: sha512-mI4WrpHsbCIcwT9cF4FZvr80QUeKvsUsUvKDoR+X/7XHQH98xYD8YHZg7ANtz2GtZt/CBq2QJ0thkGJMHfqc1w==}
+    engines: {node: '>=14.17'}
+    hasBin: true
+    dev: true
