@@ -36,7 +36,8 @@ for (const p of getPartitions(N,K)) {
     result.add(probTotal);
 }
 
-console.log(result)
+console.log(result);
+console.log(+result);
 
 function prob1(n: bigint | number | string, k: bigint | number | string) {
     if (typeof n !== "bigint") {
