@@ -10,7 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "precise-fractions": "link:C:/Users/kfeue/Desktop/Projects/Typescript/precise-fractions"
+    "precise-fractions": "^1.0.8"
   },
   "devDependencies": {
     "typescript": "^5.2.2"
