@@ -1,5 +1,6 @@
-import { createFraction as f, add } from 'precise-fractions';
+import { createFraction as f, add, subtract, multiply, Fraction, power } from 'precise-fractions';
 
+const cache = new Map<string,Fraction>();
 const N = 3;
 const K = 3;
 
@@ -18,26 +19,61 @@ const K = 3;
 
 // console.log(check);
 
-const result = f(0);
 
-for (const p of getPartitions(N,K)) {
-    let n = N;
-    const probTotal = f(1);
+function probabilityForSchockInKRoundsWithNDice(n: number,k: number) {
+    const key = `${n}-${k}`;
 
-    for (let i = 0; i < p.length; i++) {
-        const dice = p[i];
-        const prob = prob1(n, dice);
-        probTotal.multiply(prob);
-        n -= dice;
-        if (n === 0) {
-            break;
+    const cachedValue = cache.get(key);
+
+    if (cachedValue !== undefined) return cachedValue;
+
+    const result = f(0);
+
+    for (const p of getPartitions(N,k)) {
+        let n = N;
+        const probTotal = f(1);
+
+        for (let i = 0; i < p.length; i++) {
+            const dice = p[i];
+            const prob = prob1(n, dice);
+            probTotal.multiply(prob);
+            n -= dice;
+            if (n === 0) {
+                break;
+            }
         }
+        result.add(probTotal);
     }
-    result.add(probTotal);
+
+    cache.set(key, result);
+
+    return result;
 }
 
-console.log(result);
-console.log(+result);
+(() => {
+    // const result = probabilityForSchockInKRoundsWithNDice(N,K);
+    // console.log(result);
+    // console.log(+result);
+    const p = probX(6n, 1n); // The probability that five of six players have a schockout at the end, and one does not
+    console.log(p);
+    console.log(+p);
+})();
+
+function probX(players: bigint, playersWithoutSchockOut: bigint) {
+    const out = f(0);
+    const playersM1 = players - 1n;
+    const factor = bin(playersM1, playersWithoutSchockOut);
+
+    for (let i = 1; i <= K; i++) {
+        const p = probabilityForSchockInKRoundsWithNDice(N,i);
+        out.add(multiply(p, factor, subtract(1,p), power(p, playersM1 - playersWithoutSchockOut)));
+    }
+
+    const p = probabilityForSchockInKRoundsWithNDice(N,K);
+    out.add(multiply(subtract(1,p), power(p, playersM1)));
+
+    return out;
+}
 
 function prob1(n: bigint | number | string, k: bigint | number | string) {
     if (typeof n !== "bigint") {

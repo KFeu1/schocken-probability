@@ -6,8 +6,8 @@ settings:
 
 dependencies:
   precise-fractions:
-    specifier: ^1.0.8
-    version: 1.0.8
+    specifier: ^1.1.0
+    version: 1.1.0
 
 devDependencies:
   typescript:
@@ -16,8 +16,8 @@ devDependencies:
 
 packages:
 
-  /precise-fractions@1.0.8:
-    resolution: {integrity: sha512-6paIOEBUtQzq9UZVAsEfkIOU4zb/BsyV9XoqFympR36HJipiRq+MRHjmNoVMFvFatW7PNjWP2DfGl68y+W4rTQ==}
+  /precise-fractions@1.1.0:
+    resolution: {integrity: sha512-RD4mXWH8bXGuIDfZFtl6zUkBSH8e3iwxzBLzVwnw8WntsLKnEGpW+JMCJg8uuEVps0jPVW+c38ZRs+3VjbZ+uQ==}
     engines: {node: '>=10.4.0'}
     dev: false
 
