@@ -55,7 +55,7 @@ function probabilityForSchockInKRoundsWithNDice(n: number,k: number) {
     // console.log(result);
     // console.log(+result);
     const p = probX(6n, 1n); // The probability that five of six players have a schockout at the end, and one does not
-    console.log(p);
+    console.log(p.toString());
     console.log(+p);
 })();
 

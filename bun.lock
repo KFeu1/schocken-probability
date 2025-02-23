@@ -1,0 +1,19 @@
+{
+  "lockfileVersion": 1,
+  "workspaces": {
+    "": {
+      "name": "schocken",
+      "dependencies": {
+        "precise-fractions": "^1.1.0",
+      },
+      "devDependencies": {
+        "typescript": "^5.2.2",
+      },
+    },
+  },
+  "packages": {
+    "precise-fractions": ["precise-fractions@1.1.1", "", {}, "sha512-KPB9z4/ydSvoEsFJ/7FOV6IWnWEJLlQ1ijdB4HffQFh5TiDX/Sk7OFe7Sw51pQNoJLSMVjUiC/22XEBzn+LHbg=="],
+
+    "typescript": ["typescript@5.7.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw=="],
+  }
+}

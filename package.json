@@ -10,9 +10,9 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "precise-fractions": "^1.1.0"
+    "precise-fractions": "^1.1.1"
   },
   "devDependencies": {
-    "typescript": "^5.2.2"
+    "typescript": "^5.7.3"
   }
 }
