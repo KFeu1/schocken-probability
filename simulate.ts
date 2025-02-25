@@ -3,6 +3,5 @@
 import { z } from "zod";
 import { parse } from "./simulation/parse";
 
-const { players, dice, throws } = parse();
+const { PLAYERS, DICE, THROWS, SIMULATIONS } = parse();
 
-console.log(players, dice, throws)
