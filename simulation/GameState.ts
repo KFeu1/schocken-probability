@@ -17,4 +17,8 @@ export class GameState {
     getMaxThrows(): number {
         return this.turns[0]?.turn || this.game.globals.THROWS;
     }
+
+    reset(): void {
+        this.turns = [];
+    }
 }

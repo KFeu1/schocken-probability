@@ -4,8 +4,24 @@ import { Game } from "./simulation/game";
 import { parse } from "./simulation/parse";
 import { SchockenHeisstDasSpielPlayStyle } from "./simulation/playstyles/SchockenHeisstDasSpiel";
 
-const { SIMULATIONS, SCHOCK_OUTS, ...REST } = parse();
+const { SIMULATIONS, SCHOCK_OUTS, ...GLOBALS } = parse();
 
-const game = new Game({ globals: REST, playStyle: new SchockenHeisstDasSpielPlayStyle() });
+const game = new Game({
+    globals: GLOBALS,
+    playStyle: new SchockenHeisstDasSpielPlayStyle(),
+});
 
-console.log(game);
+let fiveSchockOutCount = 0;
+
+for (let i = 0; i < SIMULATIONS; i++) {
+    const numberOfSchockOuts = game.run().validate();
+    if (numberOfSchockOuts === 5) {
+        fiveSchockOutCount++;
+    }
+    game.reset();
+}
+
+const probabilityOfFiveSchockOuts = fiveSchockOutCount / SIMULATIONS;
+
+console.log(`The probability of five Schock Outs is ${probabilityOfFiveSchockOuts.toFixed(8)}`);
+
