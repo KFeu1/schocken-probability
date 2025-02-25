@@ -4,15 +4,15 @@
     "": {
       "name": "schocken",
       "dependencies": {
-        "precise-fractions": "^1.1.0",
+        "precise-fractions": "1.1.10",
       },
       "devDependencies": {
-        "typescript": "^5.2.2",
+        "typescript": "^5.7.3",
       },
     },
   },
   "packages": {
-    "precise-fractions": ["precise-fractions@1.1.1", "", {}, "sha512-KPB9z4/ydSvoEsFJ/7FOV6IWnWEJLlQ1ijdB4HffQFh5TiDX/Sk7OFe7Sw51pQNoJLSMVjUiC/22XEBzn+LHbg=="],
+    "precise-fractions": ["precise-fractions@1.1.10", "", {}, "sha512-JdKvWChNZk3JW+IHx84VfGEcj691igJh32TOJ7/xw8PYO7cOu5cUR0iYG8Otgw3Mzim0WWjYJO9ca8I4M/yX7A=="],
 
     "typescript": ["typescript@5.7.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw=="],
   }

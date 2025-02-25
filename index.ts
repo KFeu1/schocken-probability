@@ -19,7 +19,6 @@ const K = 3;
 
 // console.log(check);
 
-
 function probabilityForSchockInKRoundsWithNDice(n: number,k: number) {
     const key = `${n}-${k}`;
 
