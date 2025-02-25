@@ -4,3 +4,6 @@ import { parse } from "./simulation/parse";
 
 const { PLAYERS, DICE, THROWS, SIMULATIONS, SCHOCK_OUTS } = parse();
 
+
+
+
