@@ -28,13 +28,14 @@ function divideBigIntToString(a: bigint, b: bigint, decimalPlaces: bigint): stri
 
     // Calculate a rounding factor
     const roundingFactor = (remainder * 10n * 10n) / b;
+    const index = Number(decimalPlaces - 1n);
 
     // Adjust the last decimal digit based on the rounding factor
-    const lastDecimalDigit = Number(decimalPart[decimalPlaces - 1]);
+    const lastDecimalDigit = Number(decimalPart[index]);
     if (roundingFactor >= 5n) {
-      decimalPart = decimalPart.slice(0, decimalPlaces - 1) + (lastDecimalDigit + 1);
+      decimalPart = decimalPart.slice(0, index) + (lastDecimalDigit + 1);
     } else {
-      decimalPart = decimalPart.slice(0, decimalPlaces - 1) + lastDecimalDigit;
+      decimalPart = decimalPart.slice(0, index) + lastDecimalDigit;
     }
 
     const result = `${wholePartString}.${decimalPart}`;

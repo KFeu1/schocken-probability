@@ -6,13 +6,17 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
+  "type": "module",
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "precise-fractions": "1.1.10"
+    "precise-fractions": "1.1.10",
+    "yargs-parser": "^21.1.1",
+    "zod": "^3.24.2"
   },
   "devDependencies": {
+    "@types/node": "^22.13.5",
     "typescript": "^5.7.3"
   }
 }
