@@ -8,6 +8,7 @@ const schema = z.object({
     p: z.number().describe("The number of players."),
     d: z.number().describe("The number of dice."),
     t: z.number().describe("The number of dice throws per round"),
+    s: z.number().describe("The number of players with a Schock Out."),
 });
 
 export function parse() {
@@ -28,5 +29,6 @@ export function parse() {
         DICE: data.d,
         THROWS: data.t,
         SIMULATIONS: data.n,
+        SCHOCK_OUTS: data.s,
     }
 }
