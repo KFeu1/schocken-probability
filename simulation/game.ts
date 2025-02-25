@@ -1,34 +1,32 @@
+import { GameState } from "./GameState";
+import { PlayStyle } from "./types";
 
-/**
- * Throw n dice and return the results in order from lowest to highest.
- * 
- * @param n 
- * @returns 
- */
-export function throwDice(n: number): Array<number> {
-    const arr = Array.from({ length: n }, getRandomDiceNumber);
-    arr.sort();
-    return arr;
+type GameInput = {
+    globals: Game["globals"],
+    playStyle: PlayStyle,
 }
 
-function getRandomDiceNumber(): number {
-    return Math.floor(Math.random() * 6) + 1;
-}
+export class Game {
+    public state: GameState;
+    public playStyle: PlayStyle;
+    public globals: {
+        PLAYERS: number;
+        DICE: number;
+        THROWS: number;
+    }
 
-export function countOnes(arr: Array<number>): number {
-    return count(arr, 1);
-}
+    constructor(input: GameInput) {
+        const { globals, playStyle } = input;
 
-export function countSixes(arr: Array<number>): number {
-    return count(arr, 6);
-}
+        this.globals = globals;
+        this.state = new GameState(this);
+        this.playStyle = playStyle;
+    }
 
-function count(arr: Array<number>, n: number): number {
-    let count = 0;
-    for (let i = 0; i < arr.length; i++) {
-        if (arr[i] === n) {
-            count++;
+    run(): void {
+        for (let i = 0; i < this.globals.PLAYERS; i++) {
+            const playerAction = this.playStyle.takeAktion(this.state);
+            this.state.turns.push(playerAction);
         }
     }
-    return count;
 }

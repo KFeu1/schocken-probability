@@ -1,20 +1,20 @@
-import { GameStateInterface, PlayerAction } from "./types";
+import { Game } from "./game";
+import { PlayerAction } from "./types";
 
 type WithoutMethods<T> = {
     [K in keyof T]: T[K] extends (...args: any[]) => any ? never : T[K];
 };
 
 
-export class GameState implements GameStateInterface {
-    public turns: Array<PlayerAction>;
-    public globals: GameStateInterface["globals"];
+export class GameState {
+    public turns: Array<PlayerAction> = [];
+    public game: Game;
 
-    constructor(input: WithoutMethods<GameState>) {
-        this.globals = input.globals;
-        this.turns = input.turns;
+    constructor(game: Game) {
+        this.game = game;
     }
 
     getMaxThrows(): number {
-        return this.turns[0]?.turn || this.globals.THROWS;
+        return this.turns[0]?.turn || this.game.globals.THROWS;
     }
 }
