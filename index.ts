@@ -179,7 +179,7 @@ function probY(players: bigint, playersWithoutSchockOut: bigint, k: number): Fra
 }
 
 /**
- * Probability to have exactly(?) k 1s after throwing n dice (includes the rule two combine two 6s into one 1).
+ * Probability to have exactly k 1s after throwing n dice (includes the rule two combine two 6s into one 1).
  * 
  * @param n 
  * @param k 
