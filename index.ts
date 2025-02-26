@@ -81,6 +81,9 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
         return sum;
     }
     console.log(+sum2());
+    for (let i = 0n; i <= playerCount; i++) {
+        console.log(`Chance of ${i} having a schockout: ${+probX(playerCount, playerCount - i)}`);
+    }
 })();
 
 function probX(players: bigint, playersWithoutSchockOut: bigint) {
@@ -128,7 +131,22 @@ function probY(players: bigint, playersWithoutSchockOut: bigint, k: number) {
         return sum;
     }
     const p = sumUp();
+
+    if (playersWithoutSchockOut === 0n) {
+        return power(p, players);
+    }
+
     const chanceOfNoSchockOut = subtract(1,p);
+
+    if (players === playersWithoutSchockOut) {
+        return power(chanceOfNoSchockOut, players);
+    }
+
+    return add(
+        multiply(chanceOfNoSchockOut, probY(players - 1n, playersWithoutSchockOut - 1n, k)),
+        multiply(p, probY(players - 1n, playersWithoutSchockOut, k)),
+    );
+
     const factor = bin(players, playersWithoutSchockOut);
     const exponent = players - playersWithoutSchockOut;
 
