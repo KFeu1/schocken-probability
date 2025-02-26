@@ -73,6 +73,14 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
         return sum;
     }
     console.log(+sum());
+    const sum2 = () => {
+        const sum = f(0);
+        for (let i = 0n; i <= N; i++) {
+            sum.add(prob1(N, i));
+        }
+        return sum;
+    }
+    console.log(+sum2());
 })();
 
 function probX(players: bigint, playersWithoutSchockOut: bigint) {
