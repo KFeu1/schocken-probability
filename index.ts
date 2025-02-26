@@ -1,6 +1,7 @@
 import { createFraction as f, add, subtract, multiply, Fraction, power } from 'precise-fractions';
 
 const cache = new Map<string,Fraction>();
+const cache2 = new Map<string,bigint>();
 /** Number of dice */
 const N = 3;
 /** Number of rounds */
@@ -177,8 +178,13 @@ function prob1(n: bigint | number | string, k: bigint | number | string) {
 };
 
 function bin(n: bigint, k: bigint) {
+    const key = `${n}-${k}`;
+    const cachedValue = cache2.get(key);
+    if (cachedValue !== undefined) return cachedValue;
     const [min, max] = minMax(k,n-k);
-    return factorialize(n, max) / factorialize(min);
+    const result = factorialize(n, max) / factorialize(min);
+    cache2.set(key, result);
+    return result;
 }
 
 function minMax(n: bigint, k: bigint) {
