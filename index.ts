@@ -53,12 +53,34 @@ function probabilityForSchockInKRoundsWithNDice(n: number,k: number) {
     // const result = probabilityForSchockInKRoundsWithNDice(N,K);
     // console.log(result);
     // console.log(+result);
-    const p = probX(6n, 1n); // The probability that five of six players have a schockout at the end, and one does not
+    const playerCount = 6n;
+    const p = probX(playerCount, 1n); // The probability that five of six players have a schockout at the end, and one does not
     console.log(p.toString());
     console.log(+p);
+    const sum = () => {
+        const sum = f(0);
+        for (let i = 0n; i <= playerCount; i++) {
+            sum.add(probX(playerCount, i));
+        }
+        return sum;
+    }
+    console.log(+sum());
 })();
 
 function probX(players: bigint, playersWithoutSchockOut: bigint) {
+    const sum = () => {
+        const sum = f(0);
+        for (let i = 1; i <= K; i++) {
+            sum.add(probabilityForSchockInKRoundsWithNDice(N,i));
+        }
+        return sum;
+    };
+
+    if (players === playersWithoutSchockOut) {
+        const chanceForNoSchockOut = subtract(1, sum());
+        return power(chanceForNoSchockOut, players);
+    }
+
     const out = f(0);
     const playersM1 = players - 1n;
     const factor = bin(playersM1, playersWithoutSchockOut);
