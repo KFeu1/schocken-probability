@@ -1,11 +1,15 @@
+import Decimal from 'decimal.js';
 import { createFraction as f, add, subtract, multiply, Fraction, power } from 'precise-fractions';
+const ProgressBar = require('progress');
 
 const cache = new Map<string,Fraction>();
 const cache2 = new Map<string,bigint>();
 /** Number of dice */
-const N = 3;
+const N: number = 3;
 /** Number of rounds */
-const K = 3;
+const K: number = 3;
+
+const playerCount: bigint = 6n;
 
 // const start = performance.now();
 // const p = prob1(33333,16666);
@@ -60,38 +64,57 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
     // const result = probabilityForSchockInExactlyKRoundsWithNDice(N,K);
     // console.log(result);
     // console.log(+result);
-    const playerCount = 6n;
     // const p = probX(playerCount, 1n); // The probability that five of six players have a schockout at the end, and one does not
     // console.log(p.toString());
     // console.log(+p);
     // console.log(prob1(2,1).toString());
     // console.log(probabilityForSchockInExactlyKRoundsWithNDice(1,1).toString());
-    const sum = () => {
-        const sum = f(0);
-        for (let i = 0n; i <= playerCount; i++) {
-            sum.add(probX(playerCount, i));
+    const validate = false;
+
+    if (validate) {
+        const sum = () => {
+            const sum = f(0);
+            for (let i = 0n; i <= playerCount; i++) {
+                sum.add(probX(playerCount, i));
+            }
+            return sum;
         }
-        return sum;
-    }
-    if (`${sum()}` !== `${f(1)}`) {
-        throw new Error("Base probability (1) is not 1");
-    }
-    const sum2 = () => {
-        const sum = f(0);
-        for (let i = 0n; i <= N; i++) {
-            sum.add(prob1(N, i));
+        if (`${sum()}` !== `${f(1)}`) {
+            throw new Error("Base probability (1) is not 1");
         }
-        return sum;
+        const sum2 = () => {
+            const sum = f(0);
+            for (let i = 0n; i <= N; i++) {
+                sum.add(prob1(N, i));
+            }
+            return sum;
+        }
+        if (`${sum2()}` !== `${f(1)}`) {
+            throw new Error("Base probability (2) is not 1");
+        }
     }
-    if (`${sum2()}` !== `${f(1)}`) {
-        throw new Error("Base probability (2) is not 1");
-    }
+
+    const bar = new ProgressBar(':bar :percent', { total: Number(playerCount) + 1 });
+
+    const chances = Array.from({ length: Number(playerCount) + 1 }, (_, i) => BigInt(i)).map(i => {
+        const result = probX(playerCount, playerCount - i);
+        bar.tick();
+        return result;
+    });
+
     for (let i = 0n; i <= playerCount; i++) {
-        console.log(`Chance of ${i} player${i === 1n ? "" : "s"} having a schockout in ${K} round${K > 1 ? "s" : 0} when a total of ${playerCount} are playing: ${+probX(playerCount, playerCount - i)}`);
+        const p = chances[Number(i)];
+        console.log(`Chance of ${i} player${i === 1n ? "" : "s"} having a schockout in ${K} round${K > 1 ? "s" : 0} when a total of ${playerCount} are playing with ${N} dice: ${calcDecimal(p)}`);
     }
 })();
 
-function probX(players: bigint, playersWithoutSchockOut: bigint) {
+function calcDecimal(fraction: Fraction): Decimal {
+    const numerator = Decimal(fraction.numerator.toString());
+    const denominator = Decimal(fraction.denominator.toString());
+    return numerator.div(denominator);
+}
+
+function probX(players: bigint, playersWithoutSchockOut: bigint): Fraction {
     const sumUp = () => {
         let sum = f(0);
         for (let i = 1; i <= K; i++) {
@@ -127,7 +150,7 @@ function probX(players: bigint, playersWithoutSchockOut: bigint) {
  * @param players 
  * @param playersWithoutSchockOut 
  */
-function probY(players: bigint, playersWithoutSchockOut: bigint, k: number) {
+function probY(players: bigint, playersWithoutSchockOut: bigint, k: number): Fraction {
     const sumUp = () => {
         let sum = f(0);
         for (let i = 1; i <= k; i++) {
@@ -160,7 +183,7 @@ function probY(players: bigint, playersWithoutSchockOut: bigint, k: number) {
  * @param k 
  * @returns 
  */
-function prob1(n: bigint | number | string, k: bigint | number | string) {
+function prob1(n: bigint | number | string, k: bigint | number | string): Fraction {
     if (typeof n !== "bigint") {
         n = BigInt(n);
     }
@@ -181,7 +204,7 @@ function prob1(n: bigint | number | string, k: bigint | number | string) {
         4n ** (n - k - 1n) * ((k - n) * bin(n,k) + (2n ** (k + 1n) - 1n) * bin(n,k + 1n)), 6n ** n);
 };
 
-function bin(n: bigint, k: bigint) {
+function bin(n: bigint, k: bigint): bigint {
     const key = `${n}-${k}`;
     const cachedValue = cache2.get(key);
     if (cachedValue !== undefined) return cachedValue;
@@ -191,12 +214,12 @@ function bin(n: bigint, k: bigint) {
     return result;
 }
 
-function minMax(n: bigint, k: bigint) {
+function minMax(n: bigint, k: bigint): [bigint, bigint] {
     if (n > k) return [k,n];
     return [n,k];
 }
 
-function factorialize(num: bigint, stop?: bigint) {
+function factorialize(num: bigint, stop?: bigint): bigint {
     if (num <= 1n)
       return 1n;
 

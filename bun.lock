@@ -4,7 +4,9 @@
     "": {
       "name": "schocken",
       "dependencies": {
+        "decimal.js": "^10.5.0",
         "precise-fractions": "1.1.10",
+        "progress": "^2.0.3",
         "yargs-parser": "^21.1.1",
         "zod": "^3.24.2",
       },
@@ -17,7 +19,11 @@
   "packages": {
     "@types/node": ["@types/node@22.13.5", "", { "dependencies": { "undici-types": "~6.20.0" } }, "sha512-+lTU0PxZXn0Dr1NBtC7Y8cR21AJr87dLLU953CWA6pMxxv/UDc7jYAY90upcrie1nRcD6XNG5HOYEDtgW5TxAg=="],
 
+    "decimal.js": ["decimal.js@10.5.0", "", {}, "sha512-8vDa8Qxvr/+d94hSh5P3IJwI5t8/c0KsMp+g8bNw9cY2icONa5aPfvKeieW1WlG0WQYwwhJ7mjui2xtiePQSXw=="],
+
     "precise-fractions": ["precise-fractions@1.1.10", "", {}, "sha512-JdKvWChNZk3JW+IHx84VfGEcj691igJh32TOJ7/xw8PYO7cOu5cUR0iYG8Otgw3Mzim0WWjYJO9ca8I4M/yX7A=="],
+
+    "progress": ["progress@2.0.3", "", {}, "sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA=="],
 
     "typescript": ["typescript@5.7.3", "", { "bin": { "tsc": "bin/tsc", "tsserver": "bin/tsserver" } }, "sha512-84MVSjMEHP+FQRPy3pX9sTVV/INIex71s9TL2Gm5FG/WG1SqXeKyZ0k7/blY/4FdOzI12CBy1vGc4og/eus0fw=="],
 
