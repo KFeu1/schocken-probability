@@ -146,12 +146,6 @@ function probY(players: bigint, playersWithoutSchockOut: bigint, k: number) {
         multiply(chanceOfNoSchockOut, probY(players - 1n, playersWithoutSchockOut - 1n, k)),
         multiply(p, probY(players - 1n, playersWithoutSchockOut, k)),
     );
-
-    const factor = bin(players, playersWithoutSchockOut);
-    const exponent = players - playersWithoutSchockOut;
-
-    // Binomial distribution
-    return multiply(factor, power(chanceOfNoSchockOut, playersWithoutSchockOut), power(p, exponent));
 }
 
 /**
