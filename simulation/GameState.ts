@@ -1,4 +1,4 @@
-import { Game } from "./game";
+import { Game } from "./Game";
 import { PlayerAction } from "./types";
 
 type WithoutMethods<T> = {

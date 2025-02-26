@@ -1,7 +1,9 @@
 import { createFraction as f, add, subtract, multiply, Fraction, power } from 'precise-fractions';
 
 const cache = new Map<string,Fraction>();
+/** Number of dice */
 const N = 3;
+/** Number of rounds */
 const K = 3;
 
 // const start = performance.now();
@@ -19,7 +21,7 @@ const K = 3;
 
 // console.log(check);
 
-function probabilityForSchockInKRoundsWithNDice(n: number,k: number) {
+function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
     const key = `${n}-${k}`;
 
     const cachedValue = cache.get(key);
@@ -28,16 +30,20 @@ function probabilityForSchockInKRoundsWithNDice(n: number,k: number) {
 
     const result = f(0);
 
-    for (const p of getPartitions(N,k)) {
-        let n = N;
+    for (const p of getPartitions(n,k)) {
+        if (p.length !== k) {
+            continue;
+        }
+
+        let nCurrent = n;
         const probTotal = f(1);
 
         for (let i = 0; i < p.length; i++) {
             const dice = p[i];
-            const prob = prob1(n, dice);
+            const prob = prob1(nCurrent, dice);
             probTotal.multiply(prob);
-            n -= dice;
-            if (n === 0) {
+            nCurrent -= dice;
+            if (nCurrent === 0) {
                 break;
             }
         }
@@ -50,30 +56,85 @@ function probabilityForSchockInKRoundsWithNDice(n: number,k: number) {
 }
 
 (() => {
-    // const result = probabilityForSchockInKRoundsWithNDice(N,K);
+    // const result = probabilityForSchockInExactlyKRoundsWithNDice(N,K);
     // console.log(result);
     // console.log(+result);
-    const p = probX(6n, 1n); // The probability that five of six players have a schockout at the end, and one does not
+    const playerCount = 6n;
+    const p = probX(playerCount, 1n); // The probability that five of six players have a schockout at the end, and one does not
     console.log(p.toString());
     console.log(+p);
+    console.log(prob1(2,1).toString());
+    console.log(probabilityForSchockInExactlyKRoundsWithNDice(1,1).toString());
+    const sum = () => {
+        const sum = f(0);
+        for (let i = 0n; i <= playerCount; i++) {
+            sum.add(probX(playerCount, i));
+        }
+        return sum;
+    }
+    console.log(+sum());
 })();
 
 function probX(players: bigint, playersWithoutSchockOut: bigint) {
-    const out = f(0);
-    const playersM1 = players - 1n;
-    const factor = bin(playersM1, playersWithoutSchockOut);
+    const sumUp = () => {
+        let sum = f(0);
+        for (let i = 1; i <= K; i++) {
+            sum.add(probabilityForSchockInExactlyKRoundsWithNDice(N,i));
+        }
+        return sum;
+    }
+    const p = sumUp();
+    const chanceOfNoSchockOut = subtract(1,p);
 
-    for (let i = 1; i <= K; i++) {
-        const p = probabilityForSchockInKRoundsWithNDice(N,i);
-        out.add(multiply(p, factor, subtract(1,p), power(p, playersM1 - playersWithoutSchockOut)));
+    if (players === playersWithoutSchockOut) {
+        return power(chanceOfNoSchockOut, players);
     }
 
-    const p = probabilityForSchockInKRoundsWithNDice(N,K);
-    out.add(multiply(subtract(1,p), power(p, playersM1)));
+    const out = f(0);
+    const playersM1 = players - 1n;
+
+    for (let i = 1; i <= K; i++) {
+        const p = probabilityForSchockInExactlyKRoundsWithNDice(N,i);
+        out.add(multiply(p, probY(playersM1, playersWithoutSchockOut, i)));
+    }
+
+    if (playersWithoutSchockOut >= 1n) {
+        out.add(multiply(chanceOfNoSchockOut, probY(playersM1, playersWithoutSchockOut - 1n, K)));
+    }
 
     return out;
 }
 
+/**
+ * Assuming the first player has played and needed k rounds
+ * 
+ * @param players 
+ * @param playersWithoutSchockOut 
+ */
+function probY(players: bigint, playersWithoutSchockOut: bigint, k: number) {
+    const sumUp = () => {
+        let sum = f(0);
+        for (let i = 1; i <= k; i++) {
+            sum.add(probabilityForSchockInExactlyKRoundsWithNDice(N,i));
+        }
+        return sum;
+    }
+    const p = sumUp();
+    const chanceOfNoSchockOut = subtract(1,p);
+    const factor = bin(players, playersWithoutSchockOut);
+    const exponent = players - playersWithoutSchockOut;
+
+    // Binomial distribution
+    return multiply(factor, power(chanceOfNoSchockOut, playersWithoutSchockOut), power(p, exponent));
+}
+
+/**
+ * Probability to have exactly(?) k 1s after throwing n dice (includes the rule two combine two 6s into one 1).
+ * 
+ * @param n 
+ * @param k 
+ * @returns 
+ */
 function prob1(n: bigint | number | string, k: bigint | number | string) {
     if (typeof n !== "bigint") {
         n = BigInt(n);
@@ -83,7 +144,7 @@ function prob1(n: bigint | number | string, k: bigint | number | string) {
     }
 
     if (n === k) {
-        return f(1,6n ** n);
+        return f(1n,6n ** n);
     }
     if (n === k + 1n) {
         return f(2n ** n + 4n * n - 1n, 6n ** n);

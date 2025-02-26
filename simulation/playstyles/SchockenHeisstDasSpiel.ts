@@ -15,6 +15,13 @@ export class SchockenHeisstDasSpielPlayStyle implements PlayStyle {
             for (let i = 0; i < oneCount; i++) {
                 currentKeptDice.push(1);
             }
+            if (currentKeptDice.length === gameState.game.globals.DICE) {
+                return {
+                    keep: currentKeptDice,
+                    unknown: [],
+                    turn: currentThrow,
+                }
+            }
             const sixCount = countSixes(dice);
             for (let i = 0; i < sixCount - 1; i++) {
                 currentKeptDice.push(1);
