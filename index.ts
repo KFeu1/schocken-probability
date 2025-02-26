@@ -61,11 +61,11 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
     // console.log(result);
     // console.log(+result);
     const playerCount = 6n;
-    const p = probX(playerCount, 1n); // The probability that five of six players have a schockout at the end, and one does not
-    console.log(p.toString());
-    console.log(+p);
-    console.log(prob1(2,1).toString());
-    console.log(probabilityForSchockInExactlyKRoundsWithNDice(1,1).toString());
+    // const p = probX(playerCount, 1n); // The probability that five of six players have a schockout at the end, and one does not
+    // console.log(p.toString());
+    // console.log(+p);
+    // console.log(prob1(2,1).toString());
+    // console.log(probabilityForSchockInExactlyKRoundsWithNDice(1,1).toString());
     const sum = () => {
         const sum = f(0);
         for (let i = 0n; i <= playerCount; i++) {
@@ -73,7 +73,9 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
         }
         return sum;
     }
-    console.log(+sum());
+    if (`${sum()}` !== `${f(1)}`) {
+        throw new Error("Base probability (1) is not 1");
+    }
     const sum2 = () => {
         const sum = f(0);
         for (let i = 0n; i <= N; i++) {
@@ -81,9 +83,11 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
         }
         return sum;
     }
-    console.log(+sum2());
+    if (`${sum2()}` !== `${f(1)}`) {
+        throw new Error("Base probability (2) is not 1");
+    }
     for (let i = 0n; i <= playerCount; i++) {
-        console.log(`Chance of ${i} having a schockout: ${+probX(playerCount, playerCount - i)}`);
+        console.log(`Chance of ${i} player${i === 1n ? "" : "s"} having a schockout in ${K} round${K > 1 ? "s" : 0} when a total of ${playerCount} are playing: ${+probX(playerCount, playerCount - i)}`);
     }
 })();
 
