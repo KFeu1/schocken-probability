@@ -11,6 +11,19 @@ const K: number = 3;
 
 const playerCount: bigint = 6n;
 
+function toCached<T extends (...args: any[]) => any> (fn: T): (...args: Parameters<T>) => ReturnType<T> {
+    const cache = new Map<string,T>();
+
+    return (...args: Parameters<T>) => {
+        const key = args.join(',');
+        const value = cache.get(key);
+        if (value !== undefined) return value;
+        const result = fn(...args);
+        cache.set(key, result);
+        return result;
+    };
+}
+
 // const start = performance.now();
 // const p = prob1(33333,16666);
 // const end = performance.now();
@@ -71,7 +84,7 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
     // console.log(probabilityForSchockInExactlyKRoundsWithNDice(1,1).toString());
 
     /** If true, validates the probability function to equal 1 in their sum */
-    const validate = false;
+    const validate = true;
 
     if (validate) {
         const sum = () => {
@@ -81,7 +94,7 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
             }
             return sum;
         }
-        if (`${sum()}` !== `${f(1)}`) {
+        if (!sum().equals(1)) {
             throw new Error("Base probability (1) is not 1");
         }
         const sum2 = () => {
@@ -91,7 +104,8 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
             }
             return sum;
         }
-        if (`${sum2()}` !== `${f(1)}`) {
+
+        if (!sum2().equals(1)) {
             throw new Error("Base probability (2) is not 1");
         }
     }

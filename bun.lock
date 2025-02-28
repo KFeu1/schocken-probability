@@ -5,7 +5,7 @@
       "name": "schocken",
       "dependencies": {
         "decimal.js": "^10.5.0",
-        "precise-fractions": "1.1.10",
+        "precise-fractions": "1.2.3",
         "progress": "^2.0.3",
         "yargs-parser": "^21.1.1",
         "zod": "^3.24.2",
@@ -21,7 +21,7 @@
 
     "decimal.js": ["decimal.js@10.5.0", "", {}, "sha512-8vDa8Qxvr/+d94hSh5P3IJwI5t8/c0KsMp+g8bNw9cY2icONa5aPfvKeieW1WlG0WQYwwhJ7mjui2xtiePQSXw=="],
 
-    "precise-fractions": ["precise-fractions@1.1.10", "", {}, "sha512-JdKvWChNZk3JW+IHx84VfGEcj691igJh32TOJ7/xw8PYO7cOu5cUR0iYG8Otgw3Mzim0WWjYJO9ca8I4M/yX7A=="],
+    "precise-fractions": ["precise-fractions@1.2.3", "", {}, "sha512-v/ocd1VJrllG4BxZH0ug+yHFF869Mk/BxQW/8aUE06ePnsVU4kMCW37mLZo3BTTHaG81US7XC2ScMZfAikhnSA=="],
 
     "progress": ["progress@2.0.3", "", {}, "sha512-7PiHtLll5LdnKIMw100I+8xJXR5gW2QwWYkT6iJva0bXitZKa/XMrSbdmg3r2Xnaidz9Qumd0VPaMrZlF9V9sA=="],
 
