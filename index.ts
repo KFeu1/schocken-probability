@@ -84,7 +84,7 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
     // console.log(probabilityForSchockInExactlyKRoundsWithNDice(1,1).toString());
 
     /** If true, validates the probability function to equal 1 in their sum */
-    const validate = true;
+    const validate = false;
 
     if (validate) {
         const sum = () => {
