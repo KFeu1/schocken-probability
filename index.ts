@@ -12,13 +12,13 @@ const K: number = 3;
 const playerCount: bigint = 6n;
 
 function toCached<T extends (...args: any[]) => any> (fn: T): (...args: Parameters<T>) => ReturnType<T> {
-    const cache = new Map<string,T>();
+    const cache = new Map<string,ReturnType<T>>();
 
     return (...args: Parameters<T>) => {
         const key = args.join(',');
         const value = cache.get(key);
         if (value !== undefined) return value;
-        const result = fn(...args);
+        const result: ReturnType<T> = fn(...args);
         cache.set(key, result);
         return result;
     };
@@ -120,7 +120,7 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
 
     for (let i = 0n; i <= playerCount; i++) {
         const p = chances[Number(i)];
-        console.log(`Chance of ${i} player${i === 1n ? "" : "s"} having a schockout in ${K} round${K > 1 ? "s" : 0} when a total of ${playerCount} are playing with ${N} dice: ${calcDecimal(p)}`);
+        console.log(`Chance of ${i} player${i === 1n ? "" : "s"} having a schockout in (at most) ${K} round${K > 1 ? "s" : 0} when a total of ${playerCount} are playing with ${N} dice: ${calcDecimal(p)}`);
     }
 })();
 
@@ -193,7 +193,10 @@ function probY(players: bigint, playersWithoutSchockOut: bigint, k: number): Fra
 }
 
 /**
- * Probability to have exactly k 1s after throwing n dice (includes the rule two combine two 6s into one 1).
+ * Probability to have exactly k 1s after throwing n dice at once (includes the rule two combine two 6s into one 1).
+ * 
+ * This function works because it presupposes that you will have more throws after this one.
+ * But note that if you throw all dice to be a 1, then you are done.
  * 
  * @param n 
  * @param k 
