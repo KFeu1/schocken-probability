@@ -1,14 +1,9 @@
 import Decimal from 'decimal.js';
 import { createFraction as f, add, subtract, multiply, Fraction, power } from 'precise-fractions';
-import { memoize } from './src/helper';
-import * as helper from './src/helper';
 import { probabilityToHaveK1sWhenThrowingNDice, probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice } from './src/methods';
 
-const getPartitions = memoize(helper.getPartitions);
 const ProgressBar = require('progress');
 
-const cache = new Map<string,Fraction>();
-const cache2 = new Map<string,bigint>();
 /** Number of dice */
 const N: number = 3;
 /** Number of rounds */
