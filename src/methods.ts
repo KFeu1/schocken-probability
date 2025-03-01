@@ -33,6 +33,14 @@ export function probabilityToHaveK1sWhenThrowingNDice(n: bigint | number | strin
         4n ** (n - k - 1n) * ((k - n) * bin(n,k) + (2n ** (k + 1n) - 1n) * bin(n,k + 1n)), 6n ** n);
 };
 
+function probabilityToHaveASchockoutAfterAtMostKRoundsWithNDice(dice: number, k: number): Fraction {
+    const result = f(0);
+    for (let i = 1; i <= k; i++) {
+        result.add(probabilityForSchockInExactlyKRoundsWithNDice(dice,i));
+    }
+    return result;
+}
+
 
 /**
  * Assuming the first player has played and needed k rounds
@@ -41,14 +49,7 @@ export function probabilityToHaveK1sWhenThrowingNDice(n: bigint | number | strin
  * @param playersWithoutSchockOut 
  */
 function probabilityThatACertainExactNumberOfSchockoutsExistUnderTheRemainingPlayers(dice: number, players: bigint, playersWithoutSchockOut: bigint, k: number): Fraction {
-    const sumUp = () => {
-        let sum = f(0);
-        for (let i = 1; i <= k; i++) {
-            sum.add(probabilityForSchockInExactlyKRoundsWithNDice(dice,i));
-        }
-        return sum;
-    }
-    const p = sumUp();
+    const p = probabilityToHaveASchockoutAfterAtMostKRoundsWithNDice(dice,k);
 
     if (playersWithoutSchockOut === 0n) {
         return power(p, players);
@@ -71,7 +72,8 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
     const result = f(0);
 
     for (const p of getPartitions(n,k)) {
-        if (p.length !== k) {
+        // This code block - when omitted - will still make the validation pass for some reason, but it is required here for correctness
+        if (p.length !== k) { 
             continue;
         }
 
@@ -94,14 +96,7 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
 }
 
 export function probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice(rounds: number, dice: number, players: bigint, playersWithoutSchockOut: bigint): Fraction {
-    const sumUp = () => {
-        let sum = f(0);
-        for (let i = 1; i <= rounds; i++) {
-            sum.add(probabilityForSchockInExactlyKRoundsWithNDice(dice,i));
-        }
-        return sum;
-    }
-    const p = sumUp();
+    const p = probabilityToHaveASchockoutAfterAtMostKRoundsWithNDice(dice,rounds);
     const chanceOfNoSchockOut = subtract(1,p);
 
     if (players === playersWithoutSchockOut) {

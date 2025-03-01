@@ -1,5 +1,15 @@
 
 
+/**
+ * Returns the cut partitions of n into p parts.
+ * 
+ * E.g. getPartitions(3,2) gives [[0, 3], [1, 2], [2, 1], [3]] 
+ * The length of the partition is how many rounds it took to get a schockout.
+ * 
+ * @param n 
+ * @param p 
+ * @returns 
+ */
 export function* getPartitions(n: number, p:number) : IterableIterator<Array<number>> {
     if (n === 0) {
         yield []
