@@ -85,6 +85,7 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
             const prob = probabilityToHaveK1sWhenThrowingNDice(nCurrent, dice);
             probTotal.multiply(prob);
             nCurrent -= dice;
+            // Not necesary, but it makes it more obvious when the iteration is done
             if (nCurrent === 0) {
                 break;
             }
