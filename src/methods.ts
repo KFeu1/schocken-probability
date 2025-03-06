@@ -96,7 +96,7 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
     return result;
 }
 
-export function probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice(rounds: number, dice: number, players: bigint, playersWithoutSchockOut: bigint): Fraction {
+export function probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice(dice: number, rounds: number, players: bigint, playersWithoutSchockOut: bigint): Fraction {
     const p = probabilityToHaveASchockoutAfterAtMostKRoundsWithNDice(dice,rounds);
     const chanceOfNoSchockOut = subtract(1,p);
 
