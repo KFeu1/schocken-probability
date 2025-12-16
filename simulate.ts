@@ -3,6 +3,7 @@
 import { Game } from "./simulation/Game";
 import { parse } from "./simulation/parse";
 import { SchockenHeisstDasSpielPlayStyle } from "./simulation/playstyles/SchockenHeisstDasSpiel";
+import ProgressBar from "progress";
 
 const { SIMULATIONS, SCHOCK_OUTS, ...GLOBALS } = parse();
 
@@ -13,11 +14,14 @@ const game = new Game({
 
 let targetSchockOutCount = 0;
 
+const bar = new ProgressBar(':bar :percent', { total: SIMULATIONS });
+
 for (let i = 0; i < SIMULATIONS; i++) {
     const numberOfSchockOuts = game.run().validate();
     if (numberOfSchockOuts === SCHOCK_OUTS) {
         targetSchockOutCount++;
     }
+    bar.tick();
     game.reset();
 }
 

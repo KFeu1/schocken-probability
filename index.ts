@@ -1,8 +1,7 @@
 import Decimal from 'decimal.js';
 import { createFraction as f, add, subtract, multiply, Fraction, power } from 'precise-fractions';
 import { probabilityToHaveK1sWhenThrowingNDice, probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice } from './src/methods';
-
-const ProgressBar = require('progress');
+import ProgressBar from "progress";
 
 /** Number of dice */
 const N: number = 3;
