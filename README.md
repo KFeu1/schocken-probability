@@ -1,6 +1,6 @@
 # schocken
 
-Exact probabilities for the German dice game **Schocken** (Knuckle): how likely is it that a given number of players gets a *Schock Out* (all dice showing a 1) within a given number of rounds?
+Exact probabilities for the German dice game **Schocken**: how likely is it that a given number of players gets a *Schock Out* (all dice showing a 1) within a given number of rounds?
 
 The calculation is exact — results are returned as mathematical fractions, never as floating-point approximations.
 
