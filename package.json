@@ -1,6 +1,6 @@
 {
   "name": "schocken",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Calculates probabilities for the German dice game \"Schocken\", not using \"Jule\", but using the strategy \"Schocke heißt das Spiel\".",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

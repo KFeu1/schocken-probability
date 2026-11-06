@@ -11,7 +11,7 @@ const N: number = 3;
 /** Number of rounds */
 const K: number = 3;
 
-const playerCount: bigint = 6n;
+const playerCount: number = 6;
 
 (() => {
     /** If true, validates the probability function to equal 1 in their sum */
@@ -20,7 +20,7 @@ const playerCount: bigint = 6n;
     if (validate) {
         const sum = () => {
             const sum = f(0);
-            for (let i = 0n; i <= playerCount; i++) {
+            for (let i = 0; i <= playerCount; i++) {
                 sum.add(probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice(N, K, playerCount, i));
             }
             return sum;
@@ -41,9 +41,9 @@ const playerCount: bigint = 6n;
         }
     }
 
-    const bar = new ProgressBar(':bar :percent', { total: Number(playerCount) + 1 });
+    const bar = new ProgressBar(':bar :percent', { total: playerCount + 1 });
 
-    const chances = Array.from({ length: Number(playerCount) + 1 }, (_, i) => BigInt(i)).map(i => {
+    const chances = Array.from({ length: playerCount + 1 }, (_, i) => i).map(i => {
         const result = probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice(N, K, playerCount, playerCount - i);
         bar.tick();
         return result;
@@ -55,8 +55,8 @@ const playerCount: bigint = 6n;
         return numerator.div(denominator);
     }
 
-    for (let i = 0n; i <= playerCount; i++) {
-        const p = chances[Number(i)];
-        console.log(`Chance of ${i} player${i === 1n ? "" : "s"} having a schockout in (at most) ${K} round${K > 1 ? "s" : 0} when a total of ${playerCount} are playing with ${N} dice: ${calcDecimal(p)}`);
+    for (let i = 0; i <= playerCount; i++) {
+        const p = chances[i];
+        console.log(`Chance of ${i} player${i === 1 ? "" : "s"} having a schockout in (at most) ${K} round${K > 1 ? "s" : ""} when a total of ${playerCount} are playing with ${N} dice: ${calcDecimal(p)}`);
     }
 })();

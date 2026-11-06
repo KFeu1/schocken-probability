@@ -106,7 +106,16 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
  * @param playersWithoutSchockOut The number of players that do NOT throw a schock out
  * @returns The exact probability as a precise fraction (see 'precise-fractions')
  */
-export function probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice(dice: number, rounds: number, players: bigint, playersWithoutSchockOut: bigint): Fraction {
+export function probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice(dice: number, rounds: number, players: number, playersWithoutSchockOut: number): Fraction {
+    // The maths below is exact and therefore works with bigints; only the public API deals in plain numbers.
+    return probabilityOfSchockoutsInAtMostRounds(dice, rounds, BigInt(players), BigInt(playersWithoutSchockOut));
+}
+
+/**
+ * BigInt version of {@link probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice}.
+ * Kept private so that callers never have to deal with bigints.
+ */
+function probabilityOfSchockoutsInAtMostRounds(dice: number, rounds: number, players: bigint, playersWithoutSchockOut: bigint): Fraction {
     const p = probabilityToHaveASchockoutAfterAtMostKRoundsWithNDice(dice,rounds);
     const chanceOfNoSchockOut = subtract(1,p);
 
