@@ -1,5 +1,5 @@
-import { GameState } from "./GameState";
-import { PlayerAction, PlayStyle } from "./types";
+import { GameState } from "./GameState.ts";
+import type { PlayerAction, PlayStyle } from "./types.ts";
 
 type GameInput = {
     globals: Game["globals"],

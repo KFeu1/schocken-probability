@@ -1,6 +1,6 @@
-import { GameState } from "../GameState";
-import { countOnes, countSixes, throwDice } from "../helper";
-import { PlayerAction, PlayStyle } from "../types";
+import type { GameState } from "../GameState.ts";
+import { countOnes, countSixes, throwDice } from "../helper/index.ts";
+import type { PlayerAction, PlayStyle } from "../types.ts";
 
 export class SchockenHeisstDasSpielPlayStyle implements PlayStyle {
     takeAktion(gameState: GameState): PlayerAction {

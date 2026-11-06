@@ -1,4 +1,4 @@
-import { GameState } from "./GameState";
+import type { GameState } from "./GameState.ts";
 
 export type PlayerAction = {
     /** Which dice are outside/visible of the cup */

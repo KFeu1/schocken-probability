@@ -1,6 +1,6 @@
 import Decimal from 'decimal.js';
 import { createFraction as f, add, subtract, multiply, Fraction, power } from 'precise-fractions';
-import { probabilityToHaveK1sWhenThrowingNDice, probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice } from './src/methods';
+import { probabilityToHaveK1sWhenThrowingNDice, probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice } from './src/methods.ts';
 import ProgressBar from "progress";
 
 /** Number of dice */

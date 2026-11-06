@@ -1,5 +1,5 @@
 import { Fraction, add, createFraction as f, multiply, power, subtract } from "precise-fractions";
-import { bin, getPartitions } from "./helper";
+import { bin, getPartitions } from "./helper.ts";
 
 
 /**

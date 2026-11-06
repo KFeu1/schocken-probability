@@ -1,8 +1,8 @@
 // Runs a monte carlo simulation of the probability of a player winning a game of Schocken.
 
-import { Game } from "./simulation/Game";
-import { parse } from "./simulation/parse";
-import { SchockenHeisstDasSpielPlayStyle } from "./simulation/playstyles/SchockenHeisstDasSpiel";
+import { Game } from "./simulation/game.ts";
+import { parse } from "./simulation/parse.ts";
+import { SchockenHeisstDasSpielPlayStyle } from "./simulation/playstyles/SchockenHeisstDasSpiel.ts";
 import ProgressBar from "progress";
 
 const { SIMULATIONS, SCHOCK_OUTS, ...GLOBALS } = parse();

@@ -1,7 +1,6 @@
 
 import { z } from "zod";
-
-const argvParser = require('yargs-parser')
+import yargsParser from "yargs-parser";
 
 const schema = z.object({
     n: z.number().min(1).describe("The number of simulations to run."),
@@ -12,7 +11,7 @@ const schema = z.object({
 });
 
 export function parse() {
-    const argv = argvParser(process.argv.slice(2));
+    const argv = yargsParser(process.argv.slice(2));
     const { error, data } = schema.safeParse(argv);
 
     if (error) {

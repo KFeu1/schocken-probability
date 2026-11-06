@@ -1,5 +1,5 @@
-import { Game } from "./Game";
-import { PlayerAction } from "./types";
+import type { Game } from "./game.ts";
+import type { PlayerAction } from "./types.ts";
 
 type WithoutMethods<T> = {
     [K in keyof T]: T[K] extends (...args: any[]) => any ? never : T[K];
