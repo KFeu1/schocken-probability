@@ -21,7 +21,7 @@
     "run": "node run.ts",
     "simulate": "node simulate.ts",
     "prepack": "tsc -p tsconfig.build.json",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "node --test test.ts"
   },
   "type": "module",
   "keywords": [
