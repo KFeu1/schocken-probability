@@ -1,26 +1,45 @@
 {
   "name": "schocken",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.ts",
+  "description": "Exact probability that k players throw a schock out in at most x rounds of the dice game Schocken.",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md"
+  ],
   "scripts": {
-    "simulate": "node simulate.ts",
+    "build": "tsc -p tsconfig.build.json",
     "typecheck": "tsc",
+    "check": "tsc && tsc -p tsconfig.build.json --noEmit",
+    "run": "node run.ts",
+    "simulate": "node simulate.ts",
+    "prepack": "tsc -p tsconfig.build.json",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "type": "module",
-  "keywords": [],
+  "keywords": [
+    "schocken",
+    "dice",
+    "probability"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "decimal.js": "^10.5.0",
-    "precise-fractions": "1.2.3",
-    "progress": "^2.0.3",
-    "yargs-parser": "^21.1.1",
-    "zod": "^3.24.2"
+    "precise-fractions": "1.2.3"
   },
   "devDependencies": {
     "@types/node": "^22.13.5",
-    "typescript": "^5.7.3"
+    "decimal.js": "^10.5.0",
+    "progress": "^2.0.3",
+    "typescript": "^5.7.3",
+    "yargs-parser": "^21.1.1",
+    "zod": "^3.24.2"
   }
 }

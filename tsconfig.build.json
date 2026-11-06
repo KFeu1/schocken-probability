@@ -1,0 +1,14 @@
+{
+    "extends": "./tsconfig.json",
+    "compilerOptions": {
+        /* Publishable build: real JavaScript plus type declarations in dist/. */
+        "noEmit": false,
+        "rootDir": ".",
+        "outDir": "dist",
+        "declaration": true,
+        "declarationMap": true,
+        /* Rewrites the '.ts' extensions of relative imports to '.js' in the emitted files. */
+        "rewriteRelativeImportExtensions": true
+    },
+    "include": ["index.ts", "src"]
+}

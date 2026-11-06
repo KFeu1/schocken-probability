@@ -96,6 +96,16 @@ function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
     return result;
 }
 
+/**
+ * Probability that exactly (players - playersWithoutSchockOut) of the players throw a schock out,
+ * when every player may throw at most `rounds` rounds with `dice` dice and two 6s count as one 1.
+ *
+ * @param dice The number of dice thrown per round
+ * @param rounds The maximum number of rounds a player throws
+ * @param players The number of players in the game
+ * @param playersWithoutSchockOut The number of players that do NOT throw a schock out
+ * @returns The exact probability as a precise fraction (see 'precise-fractions')
+ */
 export function probabiltyOfKPlayersHavingASchockoutInAtMostXRoundsWithNPlayersAndMDice(dice: number, rounds: number, players: bigint, playersWithoutSchockOut: bigint): Fraction {
     const p = probabilityToHaveASchockoutAfterAtMostKRoundsWithNDice(dice,rounds);
     const chanceOfNoSchockOut = subtract(1,p);
