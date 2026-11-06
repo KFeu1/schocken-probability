@@ -1,6 +1,6 @@
 # schocken
 
-Exact probability of schock outs in the dice game Schocken (Knuckle).
+Calculates probabilities for the German dice game "Schocken" (Knuckle): exact fractions, plus a Monte Carlo simulation.
 
 ## Use it (the package export)
 

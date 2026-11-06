@@ -1,7 +1,7 @@
 {
   "name": "schocken",
   "version": "1.0.0",
-  "description": "Exact probability that k players throw a schock out in at most x rounds of the dice game Schocken.",
+  "description": "Calculates probabilities for the German dice game \"Schocken\", not using \"Jule\", but using the strategy \"Schocke heißt das Spiel\".",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
   "exports": {
@@ -29,8 +29,11 @@
     "dice",
     "probability"
   ],
-  "author": "",
-  "license": "ISC",
+  "author": {
+    "name": "Konstantin Feuerborn",
+    "email": "k.feuerborn@yahoo.de"
+  },
+  "license": "MIT",
   "dependencies": {
     "precise-fractions": "1.2.3"
   },
