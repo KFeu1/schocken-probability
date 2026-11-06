@@ -1,6 +1,6 @@
 {
   "name": "schocken",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Calculates probabilities for the German dice game \"Schocken\", not using \"Jule\", but using the strategy \"Schocken heißt das Spiel\".",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -20,6 +20,7 @@
     "check": "tsc && tsc -p tsconfig.build.json --noEmit",
     "run": "node run.ts",
     "simulate": "node simulate.ts",
+    "chance": "node chance.ts",
     "prepack": "tsc -p tsconfig.build.json",
     "test": "node --test test.ts"
   },

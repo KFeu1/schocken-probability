@@ -41,8 +41,17 @@ export function memoize<T extends (...args: any[]) => any> (fn: T): (...args: Pa
 }
 
 export function bin(n: bigint, k: bigint): bigint {
-    const [min, max] = minMax(k,n-k);
-    return factorialize(n, max) / factorialize(min);
+    if (n < 0n || k < 0n || k > n) return 0n;
+
+    if (k > n - k) k = n - k;
+
+    let result = 1n;
+
+    for (let i = 1n; i <= k; i++) {
+        result = (result * (n - i + 1n)) / i;
+    }
+
+    return result;
 }
 
 function minMax(n: bigint, k: bigint): [bigint, bigint] {
