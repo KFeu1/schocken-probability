@@ -8,9 +8,46 @@
  * 
  * @param n 
  * @param p 
+ * @param expectedLength Will make it so that only partitions of a certain length are returned
  * @returns 
  */
-export function* getPartitions(n: number, p:number) : IterableIterator<Array<number>> {
+export function* getPartitions(n: number, p:number, expectedLength?: number) : IterableIterator<Array<number>> {
+    if (expectedLength === undefined) {
+        yield* getPartitionsRegular(n, p);
+        return;
+    }
+
+    yield* getPartitionsLimited(n, p, expectedLength);
+}
+
+function* getPartitionsLimited(n: number, p:number, expectedLength: number) : IterableIterator<Array<number>> {
+    if (n === 0) {
+        if (expectedLength === 0) {
+            yield [];
+        }
+        return;
+    } else if (expectedLength === 0) {
+        return;
+    }
+    if (p === 1) {
+        if (expectedLength === 1) {
+            yield [n];
+        }
+        return;
+    }
+
+    const expectedMinus1 = expectedLength - 1;
+
+    for (let i = 0; i <= n; i++) {
+        for (const part of getPartitions(n - i, p - 1, expectedMinus1)) {
+            if (part.length === expectedMinus1) {
+                yield [i, ...part];
+            }
+        }
+    }
+}
+
+function* getPartitionsRegular(n: number, p:number) : IterableIterator<Array<number>> {
     if (n === 0) {
         yield []
         return;

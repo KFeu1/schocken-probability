@@ -80,12 +80,7 @@ function probabilityThatACertainExactNumberOfSchockoutsExistUnderTheRemainingPla
 function probabilityForSchockInExactlyKRoundsWithNDice(n: number,k: number) {
     const result = f(0);
 
-    for (const p of getPartitions(n,k)) {
-        // This code block - when omitted - will still make the validation pass for some reason, but it is required here for correctness
-        if (p.length !== k) { 
-            continue;
-        }
-
+    for (const p of getPartitions(n,k,k)) {
         let nCurrent = n;
         const probTotal = f(1);
 
