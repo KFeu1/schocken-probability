@@ -35,9 +35,11 @@ export function probabilityToHaveK1sWhenThrowingNDice(n: bigint | number | strin
     const fourN = 4n;
     const nMinusKMinus1 = nMinusK - 1n;
     const kPlus1 = k + 1n;
+    const fourNPowerMinus1 = fourN ** nMinusKMinus1;
+    const fourNPower = fourNPowerMinus1 * 4n;
 
-    return f((fourN ** (nMinusKMinus1) * (nMinusK) + fourN ** nMinusK) * binValue +
-        fourN ** (nMinusKMinus1) * ((2n ** kPlus1 - 1n) * binValue * (nMinusK) / kPlus1 - nMinusK * binValue), 6n ** n);
+    return f((fourNPowerMinus1 * nMinusK + fourNPower) * binValue +
+        fourNPowerMinus1 * ((2n ** kPlus1 - 1n) * binValue * nMinusK / kPlus1 - nMinusK * binValue), 6n ** n);
 };
 
 function probabilityToHaveASchockoutAfterAtMostKRoundsWithNDice(dice: number, k: number): Fraction {
